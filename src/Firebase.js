@@ -35,6 +35,7 @@ export const useRooms = () => {
 };
 
 export const useRecordSentiment = id => {
+  const [prevSentiment, setPrevSentiment] = useState(0);
   const [currentSentiment, setSentiment] = useState(50);
   const firebase = useContext(FireBaseContext);
   console.log(firebase.auth().currentUser);
@@ -55,10 +56,13 @@ export const useRecordSentiment = id => {
         })
       });
     const interval = setInterval(() => {
-      updateFunction(currentSentiment);
+      setPrevSentiment(currentSentiment);
+      if (prevSentiment !== currentSentiment) {
+        updateFunction(currentSentiment);
+      }
     }, 1000);
     return () => clearInterval(interval);
-  }, [currentSentiment, roomRef, userName]);
+  }, [currentSentiment, roomRef, userName, prevSentiment]);
 
   return [currentSentiment, setSentiment];
 };

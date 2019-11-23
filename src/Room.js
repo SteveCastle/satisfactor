@@ -31,9 +31,7 @@ function Room({ match }) {
                 <Box key={personKey}>
                   <Title>{room.data().people[personKey].name}</Title>
                   {room.data().people[personKey].sentiments.map(sentiment => (
-                    <div>
-                      <p>{sentiment.value}</p>
-                    </div>
+                    <span>{sentiment.value}</span>
                   ))}
                 </Box>
               ))}
