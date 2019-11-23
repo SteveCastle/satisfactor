@@ -1,11 +1,14 @@
 import React from "react";
 import { Columns, Section, Container, Column, Title, Box } from "bloomer";
-import { usePeople } from "./Firebase";
-
+import { useRoom } from "./Firebase";
 import "bulma/css/bulma.css";
 
-function Room() {
-  const [people, loading, error] = usePeople();
+function Room({ match }) {
+  const {
+    params: { id }
+  } = match;
+
+  const [room, loading, error] = useRoom(id);
 
   return (
     <Section>
@@ -14,9 +17,15 @@ function Room() {
           <Column isSize="1">
             {!loading &&
               !error &&
-              people.docs.map(doc => (
-                <Box key={doc.id}>
-                  <Title>{doc.data().name}</Title>
+              room.data().people.map(person => (
+                <Box key={person.user}>
+                  <Title>{person.name}</Title>
+                  {person.sentiments.map(sentiment => (
+                    <div>
+                      <p>{sentiment.time.seconds}</p>
+                      <p>{sentiment.value}</p>
+                    </div>
+                  ))}
                 </Box>
               ))}
           </Column>

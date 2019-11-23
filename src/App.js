@@ -27,8 +27,8 @@ function App() {
   if (user) {
     return (
       <div className="App">
-        <Header />
         <Router className="App">
+          <Header />
           <Route exact path="/" component={Lobby} />
           <Route path="/:id" component={Room} />
         </Router>

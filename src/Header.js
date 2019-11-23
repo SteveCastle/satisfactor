@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Hero,
   HeroHeader,
@@ -18,7 +19,9 @@ function Header(props) {
       <HeroHeader>
         <Navbar>
           <NavbarStart>
-            <NavbarItem>Bloomer</NavbarItem>
+            <Link to="/">
+              <NavbarItem>Home</NavbarItem>
+            </Link>
           </NavbarStart>
           <NavbarEnd>
             <NavbarItem>Home</NavbarItem>

@@ -1,9 +1,23 @@
 import React, { useContext } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const FireBaseContext = React.createContext({});
 export const FireBaseProvider = FireBaseContext.Provider;
+
+export const useRoom = id => {
+  const firebase = useContext(FireBaseContext);
+  const [value, loading, error] = useDocument(
+    firebase
+      .firestore()
+      .collection("rooms")
+      .doc(id),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true }
+    }
+  );
+  return [value, loading, error];
+};
 
 export const useRooms = () => {
   const firebase = useContext(FireBaseContext);
@@ -12,31 +26,6 @@ export const useRooms = () => {
       .firestore()
       .collection("rooms")
       .orderBy("name"),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  );
-  return [value, loading, error];
-};
-
-export const usePeople = () => {
-  const firebase = useContext(FireBaseContext);
-  const [value, loading, error] = useCollection(
-    firebase
-      .firestore()
-      .collection("people")
-      .orderBy("name"),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  );
-  return [value, loading, error];
-};
-
-export const useSentiment = () => {
-  const firebase = useContext(FireBaseContext);
-  const [value, loading, error] = useCollection(
-    firebase.firestore().collection("sentiment"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
