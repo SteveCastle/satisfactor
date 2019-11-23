@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { useAuth } from "./Firebase";
+import Lobby from "./Lobby";
+import Room from "./Room";
+
+import Header from "./Header";
+
+import "bulma/css/bulma.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [user, initialising, error, login, logout] = useAuth();
+  if (initialising) {
+    return (
+      <div>
+        <p>Initialising User...</p>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
+  if (user) {
+    return (
+      <div className="App">
+        <Header />
+        <Router className="App">
+          <Route exact path="/" component={Lobby} />
+          <Route path="/:id" component={Room} />
+        </Router>
+        <button onClick={logout}>Log out</button>
+      </div>
+    );
+  }
+  return <button onClick={login}>Log in</button>;
 }
 
 export default App;
