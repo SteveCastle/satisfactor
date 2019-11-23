@@ -1,7 +1,16 @@
 import React from "react";
-import { Columns, Section, Container, Column, Title, Box } from "bloomer";
+import {
+  Columns,
+  Section,
+  Container,
+  Column,
+  Title,
+  Box,
+  Button
+} from "bloomer";
 import { useRoom } from "./Firebase";
 import "bulma/css/bulma.css";
+import SentimentMeter from "./SentimentMeter";
 
 function Room({ match }) {
   const {
@@ -9,20 +18,20 @@ function Room({ match }) {
   } = match;
 
   const [room, loading, error] = useRoom(id);
-
   return (
     <Section>
+      <SentimentMeter id={id} />
       <Container>
         <Columns>
           <Column isSize="1">
             {!loading &&
               !error &&
-              room.data().people.map(person => (
-                <Box key={person.user}>
-                  <Title>{person.name}</Title>
-                  {person.sentiments.map(sentiment => (
+              room.data().people &&
+              Object.keys(room.data().people).map(personKey => (
+                <Box key={personKey}>
+                  <Title>{room.data().people[personKey].name}</Title>
+                  {room.data().people[personKey].sentiments.map(sentiment => (
                     <div>
-                      <p>{sentiment.time.seconds}</p>
                       <p>{sentiment.value}</p>
                     </div>
                   ))}
