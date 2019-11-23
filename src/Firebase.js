@@ -1,57 +1,29 @@
-import React, { useContext } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-const FireBaseContext = React.createContext({});
-export const FireBaseProvider = FireBaseContext.Provider;
+import { useFirebaseApp, useFirestoreCollection } from "reactfire";
+import "firebase/performance";
 
 export const useRooms = () => {
-  const firebase = useContext(FireBaseContext);
-  const [value, loading, error] = useCollection(
-    firebase
-      .firestore()
-      .collection("rooms")
-      .orderBy("name"),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  );
-  return [value, loading, error];
+  const firebaseApp = useFirebaseApp();
+  // create a document reference
+  const roomRef = firebaseApp.firestore().collection("rooms");
+
+  // subscribe to the doc. just one line!
+  return useFirestoreCollection(roomRef);
 };
 
 export const usePeople = () => {
-  const firebase = useContext(FireBaseContext);
-  const [value, loading, error] = useCollection(
-    firebase
-      .firestore()
-      .collection("people")
-      .orderBy("name"),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  );
-  return [value, loading, error];
+  const firebaseApp = useFirebaseApp();
+  // create a document reference
+  const peopleRef = firebaseApp.firestore().collection("people");
+
+  // subscribe to the doc. just one line!
+  return useFirestoreCollection(peopleRef);
 };
 
 export const useSentiment = () => {
-  const firebase = useContext(FireBaseContext);
-  const [value, loading, error] = useCollection(
-    firebase.firestore().collection("sentiment"),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  );
-  return [value, loading, error];
-};
+  const firebaseApp = useFirebaseApp();
+  // create a document reference
+  const sentimentRef = firebaseApp.firestore().collection("sentiment");
 
-export const useAuth = () => {
-  const firebase = useContext(FireBaseContext);
-  const [user, initialising, error] = useAuthState(firebase.auth());
-  const login = () => {
-    firebase.auth().signInWithEmailAndPassword("test@test.com", "password");
-  };
-  const logout = () => {
-    firebase.auth().signOut();
-  };
-  return [user, initialising, error, login, logout];
+  // subscribe to the doc. just one line!
+  return useFirestoreCollection(sentimentRef);
 };

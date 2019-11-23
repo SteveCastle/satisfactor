@@ -9,34 +9,15 @@ import Header from "./Header";
 import "bulma/css/bulma.css";
 
 function App() {
-  const [user, initialising, error, login, logout] = useAuth();
-  if (initialising) {
-    return (
-      <div>
-        <p>Initialising User...</p>
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div>
-        <p>Error: {error}</p>
-      </div>
-    );
-  }
-  if (user) {
-    return (
-      <div className="App">
-        <Header />
-        <Router className="App">
-          <Route exact path="/" component={Lobby} />
-          <Route path="/:id" component={Room} />
-        </Router>
-        <button onClick={logout}>Log out</button>
-      </div>
-    );
-  }
-  return <button onClick={login}>Log in</button>;
+  return (
+    <div className="App">
+      <Header />
+      <Router className="App">
+        <Route exact path="/" component={Lobby} />
+        <Route path="/:id" component={Room} />
+      </Router>
+    </div>
+  );
 }
 
 export default App;

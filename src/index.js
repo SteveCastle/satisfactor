@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as firebase from "firebase";
+import { FirebaseAppProvider } from "reactfire";
 
 import "./index.css";
-import { FireBaseProvider } from "./Firebase";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
@@ -18,12 +17,10 @@ var firebaseConfig = {
   measurementId: "G-FBFK159M9H"
 };
 
-const defaultProject = firebase.initializeApp(firebaseConfig);
-
 ReactDOM.render(
-  <FireBaseProvider value={defaultProject}>
+  <FirebaseAppProvider firebaseConfig={firebaseConfig}>
     <App />
-  </FireBaseProvider>,
+  </FirebaseAppProvider>,
   document.getElementById("root")
 );
 
