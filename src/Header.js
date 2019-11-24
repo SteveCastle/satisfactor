@@ -13,26 +13,22 @@ import {
 } from "bloomer";
 import PropTypes from "prop-types";
 
-function Header(props) {
+function Header({ title }) {
   return (
     <Hero isColor="info" isSize="medium">
       <HeroHeader>
         <Navbar>
           <NavbarStart>
             <Link to="/">
-              <NavbarItem>Home</NavbarItem>
+              <NavbarItem>Satisfactor</NavbarItem>
             </Link>
           </NavbarStart>
-          <NavbarEnd>
-            <NavbarItem>Home</NavbarItem>
-            <NavbarItem>Documentation</NavbarItem>
-          </NavbarEnd>
         </Navbar>
       </HeroHeader>
 
       <HeroBody>
         <Container hasTextAlign="centered">
-          <Title>Title</Title>
+          <Title>{title}</Title>
         </Container>
       </HeroBody>
     </Hero>

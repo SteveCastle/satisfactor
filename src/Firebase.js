@@ -57,7 +57,7 @@ export const useRecordSentiment = id => {
       });
     const interval = setInterval(() => {
       setPrevSentiment(currentSentiment);
-      if (prevSentiment !== currentSentiment) {
+      if (true) {
         updateFunction(currentSentiment);
       }
     }, 1000);

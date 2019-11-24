@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecordSentiment } from "./Firebase";
 import PropTypes from "prop-types";
+import "./SentimentMeter.css";
 
 function SentimentMeter({ id }) {
   const [sentiment, setSentiment] = useRecordSentiment(id);
