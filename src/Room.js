@@ -15,6 +15,7 @@ function Room({ match }) {
   if (loading) {
     return <div>Loading</div>;
   }
+  console.log(room.data());
   return (
     <>
       <Header title={room.data().name} />

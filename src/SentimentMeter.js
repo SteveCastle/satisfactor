@@ -13,7 +13,7 @@ function SentimentMeter({ id }) {
         min="1"
         max="100"
         value={sentiment}
-        class="slider"
+        className="slider"
         id="myRange"
         onChange={e => setSentiment(e.target.value)}
       />

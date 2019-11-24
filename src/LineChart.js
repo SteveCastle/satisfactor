@@ -6,26 +6,29 @@ export function LineChart({ data }) {
     options: {
       chart: {
         zoom: {
-          enabled: false
+          enabled: true
         }
       },
       dataLabels: {
         enabled: false
       },
       stroke: {
-        curve: "straight"
+        show: true,
+        curve: "smooth",
+        lineCap: "butt",
+        colors: undefined,
+        width: 2,
+        dashArray: 0
       },
       title: {
         text: "Ratings",
         align: "left"
       },
-      grid: {
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5
-        }
+      xaxis: {
+        type: "datetime"
       }
     },
+
     series: [
       {
         name: "Sentiment",
