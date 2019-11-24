@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-export function LineChart({ data }) {
+export function LineChart({ series }) {
   const config = {
     options: {
       chart: {
@@ -28,13 +28,7 @@ export function LineChart({ data }) {
         type: "datetime"
       }
     },
-
-    series: [
-      {
-        name: "Sentiment",
-        data
-      }
-    ]
+    series
   };
 
   return (

@@ -15,7 +15,6 @@ function Room({ match }) {
   if (loading) {
     return <div>Loading</div>;
   }
-  console.log(room.data());
   return (
     <>
       <Header title={room.data().name} />
@@ -26,20 +25,19 @@ function Room({ match }) {
         <Container>
           <Columns>
             <Column isSize="1">
-              {!loading &&
-                !error &&
-                room.data().people &&
-                Object.keys(room.data().people).map(personKey => (
-                  <LineChart
-                    key={personKey}
-                    data={room
+              {!loading && !error && room.data().people && (
+                <LineChart
+                  series={Object.keys(room.data().people).map(personID => ({
+                    name: room.data().people[personID].name,
+                    data: room
                       .data()
-                      .people[personKey].sentiments.map(item => [
+                      .people[personID].sentiments.map(item => [
                         item.time.seconds,
                         item.value
-                      ])}
-                  />
-                ))}
+                      ])
+                  }))}
+                />
+              )}
             </Column>
           </Columns>
         </Container>

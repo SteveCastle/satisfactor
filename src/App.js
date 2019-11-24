@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Button } from "bloomer";
 import { useAuth } from "./Firebase";
 import Lobby from "./Lobby";
 import Room from "./Room";
@@ -31,11 +32,11 @@ function App() {
           <Route exact path="/" component={Lobby} />
           <Route path="/:id" component={Room} />
         </Router>
-        <button onClick={logout}>Log out</button>
+        <Button onClick={logout}>Log out</Button>
       </div>
     );
   }
-  return <button onClick={login}>Log in</button>;
+  return <Button onClick={login}>Log in</Button>;
 }
 
 export default App;

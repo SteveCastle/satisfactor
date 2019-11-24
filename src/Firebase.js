@@ -63,7 +63,6 @@ export const useRecordSentiment = id => {
   const [prevSentiment, setPrevSentiment] = useState(0);
   const [currentSentiment, setSentiment] = useState(50);
   const firebase = useContext(FireBaseContext);
-  console.log(firebase.auth().currentUser);
   const userName = firebase.auth().currentUser.uid;
 
   const roomRef = firebase
@@ -96,7 +95,8 @@ export const useAuth = () => {
   const firebase = useContext(FireBaseContext);
   const [user, initialising, error] = useAuthState(firebase.auth());
   const login = () => {
-    firebase.auth().signInWithEmailAndPassword("test@test.com", "password");
+    var provider = new fb.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
   };
   const logout = () => {
     firebase.auth().signOut();
