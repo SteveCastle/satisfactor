@@ -6,11 +6,16 @@ import Lobby from "./Lobby";
 import Room from "./Room";
 
 import Header from "./Header";
+import styled from "styled-components";
 
 import "bulma/css/bulma.css";
 
+const StyledApp = styled.div`
+  height: 100%;
+`;
+
 function App() {
-  const [user, initialising, error, login, logout] = useAuth();
+  const [user, initialising, error, login] = useAuth();
   if (initialising) {
     return (
       <div>
@@ -25,18 +30,19 @@ function App() {
       </div>
     );
   }
+
   if (user) {
     return (
-      <div className="App">
+      <StyledApp className="App">
         <Router className="App">
+          <Header />
           <Route exact path="/" component={Lobby} />
           <Route path="/:id" component={Room} />
         </Router>
-        <Button onClick={logout}>Log out</Button>
-      </div>
+      </StyledApp>
     );
   }
-  return <Button onClick={login}>Log in</Button>;
+  return <Header />;
 }
 
 export default App;

@@ -1,37 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Hero,
-  HeroHeader,
-  Navbar,
-  Title,
-  NavbarItem,
-  NavbarStart,
-  HeroBody,
-  Container,
-  NavbarEnd
-} from "bloomer";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
+import { useAuth } from "./Firebase";
+
+const Menubar = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+`;
+const Icon = styled.div``;
+const Logout = styled.div`
+  margin-left: auto;
+  cursor: pointer;
+`;
+const Login = styled.div`
+  margin-left: auto;
+  cursor: pointer;
+`;
 function Header({ title }) {
-  return (
-    <Hero isColor="info" isSize="medium">
-      <HeroHeader>
-        <Navbar>
-          <NavbarStart>
-            <Link to="/">
-              <NavbarItem>Satisfactor</NavbarItem>
-            </Link>
-          </NavbarStart>
-        </Navbar>
-      </HeroHeader>
+  const [user, initialising, error, login, logout] = useAuth();
 
-      <HeroBody>
-        <Container hasTextAlign="centered">
-          <Title>{title}</Title>
-        </Container>
-      </HeroBody>
-    </Hero>
+  return (
+    <Menubar>
+      <Icon>
+        <a href="/">🏠</a>
+      </Icon>
+      {user && <Logout onClick={logout}>Logout</Logout>}
+      {!user && <Login onClick={login}>Sign in</Login>}
+    </Menubar>
   );
 }
 

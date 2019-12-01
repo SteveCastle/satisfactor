@@ -64,6 +64,7 @@ export const useRecordSentiment = id => {
   const [currentSentiment, setSentiment] = useState(50);
   const firebase = useContext(FireBaseContext);
   const userName = firebase.auth().currentUser.uid;
+  const displayName = firebase.auth().currentUser.displayName;
 
   const roomRef = firebase
     .firestore()
@@ -73,7 +74,7 @@ export const useRecordSentiment = id => {
   useEffect(() => {
     const updateFunction = v =>
       roomRef.update({
-        [`people.${userName}.name`]: "Mr Name",
+        [`people.${userName}.name`]: displayName,
         [`people.${userName}.sentiments`]: fb.firestore.FieldValue.arrayUnion({
           value: v,
           time: new Date()
@@ -81,12 +82,12 @@ export const useRecordSentiment = id => {
       });
     const interval = setInterval(() => {
       setPrevSentiment(currentSentiment);
-      if (prevSentiment !== currentSentiment) {
+      if (true) {
         updateFunction(currentSentiment);
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [currentSentiment, roomRef, userName, prevSentiment]);
+  }, [currentSentiment, roomRef, userName, displayName, prevSentiment]);
 
   return [currentSentiment, setSentiment];
 };

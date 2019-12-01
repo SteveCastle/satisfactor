@@ -17,7 +17,6 @@ function Room({ match }) {
   }
   return (
     <>
-      <Header title={room.data().name} />
       <Section>
         <SentimentMeter id={id} />
       </Section>

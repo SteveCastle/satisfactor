@@ -10,7 +10,7 @@ export function LineChart({ series }) {
         }
       },
       dataLabels: {
-        enabled: false
+        enabled: true
       },
       stroke: {
         show: true,
@@ -25,7 +25,13 @@ export function LineChart({ series }) {
         align: "left"
       },
       xaxis: {
-        type: "datetime"
+        labels: {
+          formatter: function(value) {
+            var d = new Date(0);
+            d.setUTCSeconds(Math.floor(value));
+            return d.toLocaleTimeString();
+          }
+        }
       }
     },
     series
